@@ -1,0 +1,235 @@
+/* Barre de navigation */
+
+.navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+.navbar-nav {
+    margin-right: 56px;
+}
+.logo {
+    margin-left: 56px;
+}
+.nav-link {
+    margin-bottom: -9px;
+}
+.navbar {
+    background-color: #268EE6;
+}
+#navigation{
+    margin-top: 20px;
+}
+
+
+.container {
+    margin-top: 70px;
+    width: 1200px;
+}
+.custom-thead th {
+    background-color: #d9d9d9;
+}
+
+td,
+tr {
+    width: 5px;
+}
+
+
+.thead-primary {
+    background-color:blue;
+}
+.d-flex {
+    margin-top: -30px;
+    margin-right: -12px;
+}
+
+/* barre de recherche */
+.form-control::placeholder { 
+    color: rgb(219, 219, 219); 
+    opacity: 1; 
+  }
+  .form-control:focus {
+    border-color: rgb(210, 210, 210); /* Supprime la bordure */
+    box-shadow: none; /* Supprime l'ombre autour du champ lorsqu'il est en focus */
+}
+.search{
+    width: 20%;
+    
+}
+
+/* Caisse */
+.caisse{
+    margin-left: 156px;
+    color: #454545;
+}
+
+.ajout{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+   
+}
+h3{
+    margin-left: 18px;
+    color: #454545;
+}
+.btnAjout{
+    margin-left: 20px;
+}
+
+.modal-header {
+    border-bottom: none; /* Enlève la bordure en bas du header */
+    margin-top: 2px;
+  }
+.modal-footer {
+    border-top: none; /* Enlève la bordure en haut du footer */
+    margin-right: 0px;
+  }
+#modal-content{
+    height: 250px;
+    width: 320px;
+    justify-content: center;
+   
+}
+#modal-content-style{
+    height: 400px;
+    width: 320px;
+    justify-content: center;
+   
+}
+.form-control{
+    width: 260px;
+    
+}
+.btn-close {
+    width: 5px; /* ajuste la largeur */
+    height: 5px; /* ajuste la hauteur */
+    top: 3px;
+  }
+#btnAjouter{
+    width: 260px;
+  }
+#btnDropdown1{
+    width: 260px;
+}
+#btnDropdown2{
+    width: 260px;
+}
+.showBtn{
+    display: flex;
+    justify-content: space-between;
+}
+.vide{
+    text-align: left;
+    margin-left: 130px;
+    color: #aaaaaa;
+}
+tbody{
+    height: 170px;
+}
+
+/* Ticket css */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+   
+}
+
+.ticket {
+    border: 1px solid #000;
+    padding: 20px;
+    width: 300px;
+}
+
+.ticket h2 {
+    text-align: center;
+}
+
+.ticket p {
+    margin: 5px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+
+
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+h5{
+    margin-left: 20px;
+    margin-top: 7px;
+}
+#btnTableaux {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+/* Style pour le bouton Graphiques avec un rayon à droite */
+#btnGraphiques {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-right: 20px;
+}
+.btn-fixed-width {
+    width: 70px; /* Exemple de largeur fixe */
+    
+}
+
+/* Couleurs pour les boutons actifs et inactifs */
+.btn-active {
+    background-color: #268EE6; /* Couleur pour le bouton actif */
+    color: white;
+}
+
+.btn-inactive {
+    background-color: #f8f9fa; /* Couleur pour le bouton inactif */
+    color: #454545;
+    border-color: #cecece;
+}
+
+
+.modale {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#modal-style {
+    background-color:#268EE6;
+    margin: 10% auto;
+    padding: 40px;
+    border: 1px solid #888;
+    width: 30%;
+    
+}
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Crée 3 colonnes */
+    grid-gap: 50px; /* Espace entre les éléments de la grille */
+    padding: 0; /* Enlève le padding par défaut de la liste */
+    
+}
+
+.modal-grid a {
+    display: block; /* Permet aux liens de remplir chaque cellule de la grille */
+    text-align: center; /* Centre le contenu dans la cellule */
+}
+
+

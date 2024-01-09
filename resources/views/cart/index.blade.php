@@ -1,3 +1,4 @@
+view card:
 @extends('layouts.app')
 @section('extra-meta')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -52,29 +53,37 @@
 
                 @foreach (Cart::content() as $article)
                 <tr>
-                  <td class="border-0 align-middle text-center"><strong>{{ $article->model->nomArticle }}</strong></td>
-                  <td class="border-0 align-middle  text-center">
-                    <select class="custom-select" name="qty" id="qty{{ $article->rowId }}" data-id="{{ $article->rowId }}" data-stock="{{ $article->model->stock }}">
-                      @for ($i = 1; $i <= 5; $i++) <option value="{{ $i }}" {{ $article->qty == $i ? 'selected' : ''}}>
-                        {{ $i }}
-                        </option>
-                        @endfor
-                    </select>
+                  <td class="border-0 align-middle text-center">
+                    <strong>
+                      {{ $article->model ? $article->model->nomArticle : $article->name }}
+                    </strong>
                   </td>
-                  <td class="border-0 align-middle text-center"><strong>{{ $article->model->getprix() }}</strong></td>
-
-
-                  <td class="border-0 align-middle  text-center">
-                    <form action="{{ route('card.destroy',$article->rowId) }}" method="post">
+                  <td class="border-0 align-middle text-center">
+                    @if($article->model && isset($article->model->stock))
+                    <select class="custom-select" name="qty" id="qty{{ $article->rowId }}" data-id="{{ $article->rowId }}" data-stock="{{ $article->model->stock }}">
+                      @for ($i = 1; $i <= $article->model->stock; $i++)
+                        <option value="{{ $i }}" {{ $article->qty == $i ? 'selected' : '' }}>
+                          {{ $i }}
+                        </option>
+                      @endfor
+                    </select>
+                    @else
+                    {{ $article->qty }}
+                    @endif
+                  </td>
+                  <td class="border-0 align-middle text-center">
+                    <strong>{{ $article->subtotal() }}</strong>
+                  </td>
+                  <td class="border-0 align-middle text-center">
+                    <form action="{{ route('card.destroy', $article->rowId) }}" method="post">
                       @csrf
                       @method('DELETE')
-                      <button type="submit"></button>
+                      <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                     </form>
                   </td>
-
                 </tr>
-
                 @endforeach
+                
                 <div>
                   <tr>
                     <th scope="col" class="border-0 bg-light text-center">
@@ -290,6 +299,9 @@
     element.addEventListener('change', function() {
       var rowId = element.getAttribute('data-id');
       var stock = element.getAttribute('data-stock');
+      if (!stock) {
+        return;
+      }
       var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
       console.log(rowId);
       console.log(token);

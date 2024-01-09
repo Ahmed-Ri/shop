@@ -24,61 +24,77 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  const ctx = document.getElementById('myChart');
+ const ctx = document.getElementById('myChart');
 
-  new Chart(ctx, {
+// Préparation des données
+const dataMap = new Map();
+
+// Traiter les dépenses
+@foreach ($depenses as $depense)
+if (!dataMap.has("{{ $depense->date }}")) {
+    dataMap.set("{{ $depense->date }}", { depenses: 0, recettes: 0 });
+}
+dataMap.get("{{ $depense->date }}").depenses += {{ $depense->total }};
+@endforeach
+
+// Traiter les recettes
+@foreach ($recettes as $recette)
+if (!dataMap.has("{{ $recette->date }}")) {
+    dataMap.set("{{ $recette->date }}", { depenses: 0, recettes: 0 });
+}
+dataMap.get("{{ $recette->date }}").recettes += {{ $recette->total }};
+@endforeach
+
+// Trier les dates et préparer les données pour le graphique
+const sortedDates = Array.from(dataMap.keys()).sort();
+const labels = [];
+const depensesData = [];
+const recettesData = [];
+
+sortedDates.forEach(date => {
+    labels.push(date);
+    const data = dataMap.get(date);
+    depensesData.push(data.depenses);
+    recettesData.push(data.recettes);
+});
+
+// Configuration du graphique
+new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: [
-          @foreach ($depenses as $depense)
-              "{{ $depense->date }}",
-          @endforeach
-      ],
-      datasets: [{
-        label: 'Dépences',
-        data: [
-          @foreach ($depenses as $depense)
-              {{ $depense->total }},
-          @endforeach
-        ],
-        
-        borderWidth: 0,
-        backgroundColor: "rgba(255, 88, 132, 0.5)",
-        hoverOffset: 10
-      },
-      {
-        label: 'recettes',
-        data: [
-          @foreach ($recettes as $recette)
-              {{ $recette->total }},
-          @endforeach
-        ],
-        
-        borderWidth: 0,
-        backgroundColor: "lightblue",
-        hoverOffset: 10
-      }]
+        labels: labels,
+        datasets: [{
+            label: 'Dépenses',
+            data: depensesData,
+            backgroundColor: "rgba(255, 88, 132, 0.5)",
+            hoverOffset: 10
+        }, {
+            label: 'Recettes',
+            data: recettesData,
+            backgroundColor: "lightblue",
+            hoverOffset: 10
+        }]
     },
     options: {
-      scales: {
-        y: {
-          suggestedMax: 100,
-          ticks: {
-            font: {
-                size: 15
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    font: {
+                        size: 15
+                    }
+                }
+            },
+            x: {
+                ticks: {
+                    font: {
+                        size: 10
+                    }
+                }
             }
-          }
-        },
-        x: {
-          ticks: {
-            font: {
-                size: 10
-            }
-          }
         }
-      }
     }
-  });
+});
     // Graphique en secteurs pour recettes et dépenses
     const rdCtx = document.getElementById('RDChart').getContext('2d');
 

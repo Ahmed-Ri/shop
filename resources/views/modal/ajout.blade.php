@@ -29,46 +29,90 @@
             </div>
             <div class="modal-footer d-flex flex-column align-items-center mt-2">
 
-                <input type="text" class="form-control" placeholder="Montant" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <input type="text" class="form-control" placeholder="Nom du produit" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <div  class="dropdown ">
-                    <button id="btnDropdown1" class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                       Origine de la vente
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a id="dropdown-item1" class="dropdown-item" href="#">Shop Radar</a></li>
-                        <li><a id="dropdown-item1" class="dropdown-item" href="#">Site</a></li>
-                        <li><a id="dropdown-item1" class="dropdown-item" href="#">Instagram</a></li>
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <button id="btnDropdown2" class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Catégorie du produit
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a id="dropdown-item2" class="dropdown-item" href="#">Vetements</a></li>
-                        <li><a id="dropdown-item2" class="dropdown-item" href="#">Chaussures</a></li>
-                        <li><a id="dropdown-item2" class="dropdown-item" href="#">Accessoires</a></li>
-                    </ul>
-                </div>
+                 <!-- Formulaire pour saisir les informations de Montant Libre -->
+                 <form action="{{ route('card.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="type" value="montantLibre">
+                    <input type="text" class="form-control my-2" name="montant" placeholder="Montant" required>
+                    <input type="text" class="form-control my-2" name="nomProduit" placeholder="Nom du produit" required>
 
-            </div>
-            <div class="modal-footer">
-              <!-- 
-              <button id="confirm" class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Oui</button>
-              <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Non</button> -->
-              <form action="" method="post">
-                @csrf
-                <button id="confirm" class="btn btn-primary" data-bs-target="" data-bs-toggle="modal">Ajouter</button>
+                    <!-- Origine de la vente -->
+                    <select class="form-select my-2" name="origineDeVente" required>
+                        <option value="">Choisir l'origine de la vente</option>
+                        <option value="Shop Radar">Shop Radar</option>
+                        <option value="Site">Site</option>
+                        <option value="Instagram">Instagram</option>
+                        <!-- Ajoutez plus d'options ici si nécessaire -->
+                    </select>
 
-              </form>
-              <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Annuler</button>
+                    <!-- Catégorie du produit -->
+                    <select class="form-select my-2" name="categorie" required>
+                        <option value="">Choisir la catégorie du produit</option>
+                        <option value="Vetements">Vêtements</option>
+                        <option value="Chaussures">Chaussures</option>
+                        <option value="Accessoires">Accessoires</option>
+                        <!-- Ajoutez plus de catégories ici si nécessaire -->
+                    </select>
+
+                    <div class="modal-footer">
+                        <!-- 
+                        <button id="confirm" class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Oui</button>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Non</button> -->
+                        
+                          <button id="confirm" class="btn btn-primary" data-bs-target="" data-bs-toggle="modal">Ajouter</button>
+          
+                        
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Annuler</button>
+                      </div>                </form>
             </div>
+           
         </div>
     </div>
 </div>
 <button class="btn btn-primary " data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">Ajouter article +</button>
 
+{{-- 
+<div class="modal fade" id="exampleModalToggle4" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Ajouter Montant Libre</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer d-flex flex-column align-items-center mt-2">
+                <!-- Formulaire pour saisir les informations de Montant Libre -->
+                <form action="{{ route('card.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="type" value="montantLibre">
+                    <input type="text" class="form-control my-2" name="montant" placeholder="Montant" required>
+                    <input type="text" class="form-control my-2" name="nomProduit" placeholder="Nom du produit" required>
+
+                    <!-- Origine de la vente -->
+                    <select class="form-select my-2" name="origineDeVente" required>
+                        <option value="">Choisir l'origine de la vente</option>
+                        <option value="Shop Radar">Shop Radar</option>
+                        <option value="Site">Site</option>
+                        <option value="Instagram">Instagram</option>
+                        <!-- Ajoutez plus d'options ici si nécessaire -->
+                    </select>
+
+                    <!-- Catégorie du produit -->
+                    <select class="form-select my-2" name="categorie" required>
+                        <option value="">Choisir la catégorie du produit</option>
+                        <option value="Vetements">Vêtements</option>
+                        <option value="Chaussures">Chaussures</option>
+                        <option value="Accessoires">Accessoires</option>
+                        <!-- Ajoutez plus de catégories ici si nécessaire -->
+                    </select>
+
+                    <button id="btnAjouterMontantLibre" type="submit" class="btn btn-primary mt-2">Ajouter au Panier</button>
+                </form>
+                <!-- Fin du Formulaire -->
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle4">Ajouter Montant Libre +</button> --}}
 
 <script>
      // Sélectionner tous les éléments de la liste déroulante

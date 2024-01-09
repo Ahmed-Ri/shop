@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('registres', function (Blueprint $table) {
             $table->id();
-            $table->string('nomArticle');
+            $table->string('nomArticle')->nullable();
             $table->text('designation')->nullable();
             $table->string('image')->nullable();
             $table->string('marque')->nullable();

@@ -19,7 +19,13 @@
 #navigation{
     margin-top: 20px;
 }
-
+.bordered-dropdown {
+    border: 1px solid #ccc; /* Example: gray border, 1px width */
+    border-radius: 4px; /* Optional: rounded corners */
+}
+.margin-left {
+    margin-left: 25px; /* Adjust the value as needed */
+}
 
 .container {
     margin-top: 70px;
@@ -232,4 +238,23 @@ h5{
     text-align: center; /* Centre le contenu dans la cellule */
 }
 
-
+/* table Liste */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.no-vertical-lines th, .no-vertical-lines td {
+    border-left: none;
+    border-right: none;
+}
+.no-bottom-border td {
+    border-bottom: none;
+}
+@media (min-width: 576px) {
+    .right-aligned {
+        text-align: right;
+    }
+}

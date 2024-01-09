@@ -10,11 +10,11 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse " id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item dropdown ml-5">
+                <li class="nav-item dropdown margin-left ">
                     <form method="GET">
-                        <select class="btn btn-light dropdown-toggle" name="periode" id="periode-select" onchange="this.form.submit()">
+                        <select class="btn  dropdown-toggle bordered-dropdown" name="periode" id="periode-select" onchange="this.form.submit()">
                             <option value="jour"{{ request('periode') == 'jour' ? ' selected' : '' }}>Jour</option>
                             <option value="semaine"{{ request('periode') == 'semaine' ? ' selected' : '' }}>Semaine</option>
                             <option value="mois"{{ request('periode') == 'mois' ? ' selected' : '' }}>Mois</option>
@@ -22,9 +22,9 @@
                         </select>
                     </form>
                 </li>
-                <li class="nav-item dropdown ml-5">
+                <li class="nav-item dropdown margin-left ">
                     <form method="GET">
-                        <select class="btn btn-light dropdown-toggle" name="categorie" id="navbarDropdown" onchange="redirectToPage(this)">
+                        <select class="btn dropdown-toggle bordered-dropdown" name="categorie" id="navbarDropdown" onchange="redirectToPage(this)">
                             <option value="recettes_et_depenses" selected>Recette et Dépenses</option>
                             <option value="recettes">Recettes</option>
                             <option value="depenses">Dépenses</option>
@@ -33,7 +33,7 @@
                     </form>
                 </li>
                 
-                <li class="nav-item dropdown ml-5">
+                <li class="nav-item dropdown margin-left">
                     <form method="GET" id="filters-form">
                         <input type="text" name="daterange" value="01/12/2023 - 31/12/2023" />
                       

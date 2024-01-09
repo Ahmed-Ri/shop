@@ -65,6 +65,7 @@
         <td>{{ $article->getprix() }}</td>
 
 
+        
         <td>
             <form action="{{ route('article.show', $article->slug) }}">
                 @csrf

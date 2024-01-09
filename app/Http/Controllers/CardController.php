@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Article;
-
+use App\Models\MontantLibre;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 //use Illuminate\Contracts\Session\Session;
@@ -39,6 +39,7 @@ class CardController extends Controller
     public function store(Request $request)
     {
         $article = Article::find($request->id_article);
+        if ($article) {
         $duplicata = Cart::search(function ($cartItem, $rowId) use ($request) {
             return $cartItem->id == $request->id_article;
         });
@@ -52,12 +53,75 @@ class CardController extends Controller
         //dd($request->id,$request->nomArticle,$request->prix);
         Cart::add($article->id, $article->nomArticle, 1, $article->prixTTC)->associate('App\Models\Article');
         //Cart::add(['id' => $article->id, 'nomArticle' => $article->nomArticle, 'qty' => 1, 'prix' =>$article->prix]);
-
+    }
+    elseif ($request->type === 'montantLibre') {
+                // Ajouter un MontantLibre
+                // $validatedData = $request->validate([
+                //     'nomProduit' => 'required|string',
+                //     'montant' => 'required|numeric',
+                //     'origineDeVente' => 'required|string',
+                //     'categorie' => 'required|string',
+                //     // Autres règles de validation
+                // ]);
+                try {
+                    $montantLibre = MontantLibre::create([
+                        'nomArticle' => $request->nomProduit,
+                        'prixTTC' => $request->montant,
+                        'OrigineDeVente' => $request->origineDeVente,
+                        'categorie' => $request->categorie,
+                        // Autres champs nécessaires
+                    ]);
+                } catch (\Exception $e) {
+                    // Gérer l'exception
+                }
+                
+        
+                // Vérifier si MontantLibre a été créé avec succès avant de l'ajouter au panier
+                
+                    Cart::add($montantLibre->id, $montantLibre->nomArticle, 1, $montantLibre->prixTTC);
+            }
 
 
         return redirect()->route('articles.index')->with('success', 'le article a été ajouté ');
     }
-
+    // public function store(Request $request)
+    // {
+    //     // Vérifier le type de soumission : article régulier ou MontantLibre
+    //     if ($request->type === 'article') {
+    //         // Ajouter un article de la table 'articles'
+    //         $article = Article::find($request->id_article);
+    //         if ($article) {
+    //             $duplicata = Cart::search(function ($cartItem, $rowId) use ($request) {
+    //                 return $cartItem->id == $request->id_article;
+    //             });
+    //             if ($duplicata->isNotEmpty()) {
+    //                 return redirect()->route('articles.index')->with('success', 'le article a déja été ajouté' . ' (' . Cart::count() . ' articles)');
+    //             }
+    //             if ($article->stock == 0) {
+    //                 return redirect()->route('articles.index')->withErrors(['error' => 'Article indisponible !']);
+    //             }
+        
+    //             //dd($request->id,$request->nomArticle,$request->prix);
+    //             Cart::add($article->id, $article->nomArticle, 1, $article->prixTTC)->associate('App\Models\Article');
+    //         }
+    //     } elseif ($request->type === 'montantLibre') {
+    //         // Ajouter un MontantLibre
+    //         $montantLibre = MontantLibre::create([
+    //             'nomArticle' => $request->nomProduit,
+    //             'prixTTC' => $request->montant,
+    //             'OrigineDeVente' => $request->origineDeVente,
+    //             'categorie' => $request->categorie,
+    //             // Autres champs nécessaires
+    //         ]);
+    
+    //         // Vérifier si MontantLibre a été créé avec succès avant de l'ajouter au panier
+    //         if ($montantLibre) {
+    //             Cart::add($montantLibre->id, $montantLibre->nomArticle, 1, $montantLibre->prixTTC);
+    //         }
+    //     }
+    
+    //     return redirect()->route('articles.index')->with('success', 'Article ajouté au panier.');
+    // }
     /**
      * Display the specified resource.
      */

@@ -21,9 +21,9 @@
 <div id="menuModal" class="modale">
   <div id="modal-style" class="modal-content">
       <ul class="modal-grid">
-          <a href="/"><img src="/assets/images/Catalogues.png"width="60" height="34"></a>
+          <a href="/catalogue"><img src="/assets/images/Catalogues.png"width="60" height="34"></a>
           <a href=""><img src="/assets/images/Commandes.png"width="60" height="35"></a>
-          <a href="/paniers"><img src="/assets/images/Caisse.png"width="40" height="40"></a>
+          <a href="/"><img src="/assets/images/Caisse.png"width="40" height="40"></a>
           <a href=""><img src="/assets/images/ReseauxSociaux.png"width="60" height="39"></a>
           <a href="/graphique/RecetteDepense"><img src="/assets/images/comptabilite.png"width="60" height="32"></a>
           <a href=""><img src="/assets/images/tandences.png"width="60" height="35"></a>

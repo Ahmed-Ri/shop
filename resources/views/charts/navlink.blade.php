@@ -14,14 +14,16 @@
             <ul class="navbar-nav">
                 <li class="nav-item dropdown margin-left ">
                     <form method="GET">
-                        <select class="btn  dropdown-toggle bordered-dropdown" name="periode" id="periode-select" onchange="this.form.submit()">
+                        <select class="btn dropdown-toggle bordered-dropdown" name="periode" id="periode-select" onchange="this.form.submit()">
                             <option value="jour"{{ request('periode') == 'jour' ? ' selected' : '' }}>Jour</option>
                             <option value="semaine"{{ request('periode') == 'semaine' ? ' selected' : '' }}>Semaine</option>
                             <option value="mois"{{ request('periode') == 'mois' ? ' selected' : '' }}>Mois</option>
                             <option value="annee"{{ request('periode') == 'annee' ? ' selected' : '' }}>Année</option>
+                            <option value="seconde"{{ request('periode') == 'seconde' ? ' selected' : '' }}>Détails</option>
                         </select>
                     </form>
                 </li>
+                
                 <li class="nav-item dropdown margin-left ">
                     <form method="GET">
                         <select class="btn dropdown-toggle bordered-dropdown" name="categorie" id="navbarDropdown" onchange="redirectToPage(this)">

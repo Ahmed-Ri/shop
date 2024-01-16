@@ -72,6 +72,7 @@ class ChartController extends Controller
     
         // Définir la période
         $periode = $request->query('periode', 'jour');
+
         switch ($periode) {
             case 'mois':
                 $group = DB::raw('MONTH(created_at)');
@@ -85,12 +86,15 @@ class ChartController extends Controller
                 $group = DB::raw('YEAR(created_at)');
                 $format = '%Y';
                 break;
+            case 'seconde':
+                $group = DB::raw('SECOND(created_at)');
+                $format = '%Y-%m-%d %H:%i:%s';
+                break;
             default:
                 $group = DB::raw('DATE(created_at)');
                 $format = '%Y-%m-%d';
                 break;
         }
-    
         // Création de la requête de base
         $query = Commande::select(
             DB::raw('sum(MtCommandeTTC) as total'),
@@ -125,24 +129,28 @@ class ChartController extends Controller
         $startDate = isset($dates[0]) ? Carbon::createFromFormat('d/m/Y', $dates[0])->format('Y-m-d') : null;
         $endDate = isset($dates[1]) ? Carbon::createFromFormat('d/m/Y', $dates[1])->format('Y-m-d') : null;
     
-        $periode = $request->query('periode', 'jour'); // 'jour' est la valeur par défaut
-    
+        $periode = $request->query('periode', 'jour');
+
         switch ($periode) {
             case 'mois':
                 $group = DB::raw('MONTH(created_at)');
-                $format = '%Y-%m'; // Format pour le mois
+                $format = '%Y-%m';
                 break;
             case 'semaine':
                 $group = DB::raw('YEARWEEK(created_at)');
-                $format = '%Y-%u'; // Format pour la semaine
+                $format = '%Y-%u';
                 break;
             case 'annee':
                 $group = DB::raw('YEAR(created_at)');
-                $format = '%Y'; // Format pour l'année
+                $format = '%Y';
                 break;
-            default: // Jour
+            case 'seconde':
+                $group = DB::raw('SECOND(created_at)');
+                $format = '%Y-%m-%d %H:%i:%s';
+                break;
+            default:
                 $group = DB::raw('DATE(created_at)');
-                $format = '%Y-%m-%d'; // Format pour le jour
+                $format = '%Y-%m-%d';
                 break;
         }
     
@@ -179,27 +187,31 @@ class ChartController extends Controller
         $startDate = isset($dates[0]) ? Carbon::createFromFormat('d/m/Y', $dates[0])->format('Y-m-d') : null;
         $endDate = isset($dates[1]) ? Carbon::createFromFormat('d/m/Y', $dates[1])->format('Y-m-d') : null;
     
-        $periode = $request->query('periode', 'jour'); // 'jour' est la valeur par défaut
-    
+        $periode = $request->query('periode', 'jour');
+
         switch ($periode) {
             case 'mois':
                 $group = DB::raw('MONTH(created_at)');
-                $format = '%Y-%m'; // Format pour le mois
+                $format = '%Y-%m';
                 break;
             case 'semaine':
                 $group = DB::raw('YEARWEEK(created_at)');
-                $format = '%Y-%u'; // Format pour la semaine
+                $format = '%Y-%u';
                 break;
             case 'annee':
                 $group = DB::raw('YEAR(created_at)');
-                $format = '%Y'; // Format pour l'année
+                $format = '%Y';
                 break;
-            default: // Jour
+            case 'seconde':
+                $group = DB::raw('SECOND(created_at)');
+                $format = '%Y-%m-%d %H:%i:%s';
+                break;
+            default:
                 $group = DB::raw('DATE(created_at)');
-                $format = '%Y-%m-%d'; // Format pour le jour
+                $format = '%Y-%m-%d';
                 break;
         }
-    
+        
         // Récupération des montants totaux des depenses
         $depenses = Depense::select(
             DB::raw('sum(MtDepense) as total'),
@@ -232,7 +244,7 @@ class ChartController extends Controller
         $endDate = isset($dates[1]) ? Carbon::createFromFormat('d/m/Y', $dates[1])->format('Y-m-d') : null;
     
         $periode = $request->query('periode', 'jour');
-    
+
         switch ($periode) {
             case 'mois':
                 $group = DB::raw('MONTH(created_at)');
@@ -246,12 +258,16 @@ class ChartController extends Controller
                 $group = DB::raw('YEAR(created_at)');
                 $format = '%Y';
                 break;
-            default: // Jour
+            case 'seconde':
+                $group = DB::raw('SECOND(created_at)');
+                $format = '%Y-%m-%d %H:%i:%s';
+                break;
+            default:
                 $group = DB::raw('DATE(created_at)');
                 $format = '%Y-%m-%d';
                 break;
         }
-    
+        
         // Récupération des montants totaux des depenses
         $depenses = Depense::select(
             DB::raw('sum(MtDepense) as total'),
@@ -287,22 +303,28 @@ public function Recettedepense(Request $request)
 
     $periode = $request->query('periode', 'jour');
 
+    $periode = $request->query('periode', 'jour');
+
     switch ($periode) {
         case 'mois':
             $group = DB::raw('MONTH(created_at)');
-            $format = '%Y-%m'; // Format pour le mois
+            $format = '%Y-%m';
             break;
         case 'semaine':
             $group = DB::raw('YEARWEEK(created_at)');
-            $format = '%Y-%u'; // Format pour la semaine
+            $format = '%Y-%u';
             break;
         case 'annee':
             $group = DB::raw('YEAR(created_at)');
-            $format = '%Y'; // Format pour l'année
+            $format = '%Y';
             break;
-        default: // Jour
+        case 'seconde':
+            $group = DB::raw('SECOND(created_at)');
+            $format = '%Y-%m-%d %H:%i:%s';
+            break;
+        default:
             $group = DB::raw('DATE(created_at)');
-            $format = '%Y-%m-%d'; // Format pour le jour
+            $format = '%Y-%m-%d';
             break;
     }
 
@@ -358,6 +380,10 @@ public function Recettedepenses(Request $request)
         case 'annee':
             $group = DB::raw('YEAR(created_at)');
             $format = '%Y';
+            break;
+        case 'seconde':
+            $group = DB::raw('SECOND(created_at)');
+            $format = '%Y-%m-%d %H:%i:%s';
             break;
         default:
             $group = DB::raw('DATE(created_at)');

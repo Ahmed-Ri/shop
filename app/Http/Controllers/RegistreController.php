@@ -6,7 +6,7 @@ use App\Models\Article;
 use App\Models\Registre;
 use App\Models\SousCategorie;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 use App\Models\Commande;
@@ -78,6 +78,8 @@ class RegistreController extends Controller
     // }
     public function paiement(Request $request)
     {
+         // Récupération du moyen de paiement
+    $moyenDePaiement = $request->input('moyenDePaiement');
         // Création de la commande
         $commande = new Commande();
         $commande->nomArticle = '...'; // Définir les champs appropriés
@@ -113,7 +115,7 @@ class RegistreController extends Controller
                     $registre->MtCommandeTTC = Cart::subtotal();
                     $registre->QteArticleTotal = Cart::count();
                     $registre->quantitéArticle = $item->qty;
-                    $registre->MoyenDePaiement = $article->MoyenDePaiement;
+                    $registre->MoyenDePaiement = $moyenDePaiement;
                     $registre->OrigineDeVente = $article->OrigineDeVente;
                     $registre->categorie = $Categorie->nomCategorie;
                     $registre->SousCategorie = $sousCategorie->nomSousCategorie;
@@ -138,6 +140,9 @@ class RegistreController extends Controller
                     $registre->prixTTC = $montantLibre->prixTTC;
                     $registre->OrigineDeVente = $montantLibre->OrigineDeVente;
                     $registre->quantitéArticle = 1;
+                    $registre->QteArticleTotal = Cart::count();
+                    $registre->MtCommandeTTC = Cart::subtotal();
+                    $registre->MoyenDePaiement = $moyenDePaiement;
                     $registre->categorie = $montantLibre->categorie;
                     // Définir les autres champs nécessaires pour le montant libre
                     
@@ -149,8 +154,13 @@ class RegistreController extends Controller
 
         // Vider le panier
         Cart::destroy();
-
-        return redirect()->route('paiement')->with('success', 'Paiement effectué');
+// Confirmez la transaction
+        DB::commit();
+        
+                // Retournez une réponse de succès
+                
+             
+        return response()->json(['success' => 'Paiement effectué avec succès.']);
     }
     // $commande=new Commande();
     // $commande->nomArticle=$article->nomArticle;

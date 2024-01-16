@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('SousCategorie')->nullable();
             $table->bigInteger('idArticle')->unsigned()->nullable();
             $table->bigInteger('idMontantLibre')->unsigned()->nullable();
-            $table->bigInteger('idCommande')->unsigned();
+            $table->bigInteger('idCommande')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('idArticle')->references('id')->on('articles')->onDelete('cascade');

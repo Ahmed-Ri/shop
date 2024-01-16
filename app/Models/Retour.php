@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Depense extends Model
+class Retour extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nomDepense',
-        'MtDepense',
-        'CategorieDepense'
+        'nomArticle',
+        'MontantRetour',
+        'categorieRetour',
+       
        ];
-       public function boutique()
+       public function article()
     {
-        return $this->hasMany(Boutique::class);
+        return $this->belongsTo(Article::class);
     }
 }

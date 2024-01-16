@@ -30,6 +30,10 @@ class Article extends Model
     {
         return $this->hasMany(Registre::class);
     }
+    public function retour()
+    {
+        return $this->hasMany(Retour::class);
+    }
     public function getprix()
     {
         $prixTTC = $this->prixTTC;

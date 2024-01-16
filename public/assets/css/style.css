@@ -30,6 +30,7 @@
 .container {
     margin-top: 70px;
     width: 1200px;
+    margin-right: 70px;
 }
 .custom-thead th {
     background-color: #d9d9d9;
@@ -62,6 +63,44 @@ tr {
     width: 20%;
     
 }
+/* trie par categorie */
+.custom-dropdown {
+    padding: 10px; /* Ajoutez le padding désiré */
+    border: 1px solid #ced4da; /* Exemple de bordure */
+    border-radius: 4px; /* Bordures arrondies pour un look plus doux */
+    font-size: 1rem; /* Taille de la police */
+    /* Vous pouvez ajouter d'autres styles selon vos préférences */
+}
+.autres-options{
+    display: flex;
+}
+.opt{
+    margin-right: 10px;
+}
+
+.trie{
+    margin-left: 20px;
+    margin-top: 7px;
+}
+.rechercheFlex{
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+    margin-bottom: -15px;
+}
+.stock-info {
+    margin-top: 7px;
+    margin-left: 450px;
+    
+}
+.stock-info p {
+   font-weight: bold;
+   
+}
+.p2{
+    margin-top: -7px;
+}
+
 
 /* Caisse */
 .caisse{
@@ -257,4 +296,30 @@ h5{
     .right-aligned {
         text-align: right;
     }
+}
+
+/* modal historique de retour */
+#historiqueRetoursModal .modal-dialog {
+    width: 550px;
+}
+#historiqueRetoursModal .table {
+    width: 100%;
+    align-items: center;
+}
+#historiqueRetoursModal .table th, #historiqueRetoursModal .table td {
+    padding: 10px;
+}
+#historiqueRetoursModal .table-centered {
+    margin-left: auto;
+    margin-right: auto;
+    width: auto; /* Ajustez cette largeur selon vos besoins */
+}
+#historiqueRetoursModalLabel{
+   margin-left: 170px;
+}
+#historiqueRetoursModal .table th {
+    white-space: nowrap;
+}
+.table-responsive .table th {
+    white-space: nowrap;
 }

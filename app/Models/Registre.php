@@ -38,5 +38,9 @@ class Registre extends Model
     {
         return $this->belongsTo(Commande::class);
     }
+    public function boutique()
+    {
+        return $this->hasMany(Boutique::class);
+    }
     
 }

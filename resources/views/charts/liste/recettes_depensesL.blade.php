@@ -22,14 +22,17 @@
                             <tr>
                                 <td>{{ $item['date'] }}</td>
                                 <td class="right-aligned">{{ $item['totalRecettes'] }}</td>
+                                
                             </tr>
                         @endif
+                        
                         <!-- Ligne pour les dépenses -->
                         @if ($item['totalDepenses'] != '0 €')
                             @php $totalDepenses += floatval(str_replace(' €', '', $item['totalDepenses'])); @endphp
                             <tr>
                                 <td>{{ $item['date'] }}</td>
                                 <td class="right-aligned text-danger">-{{ $item['totalDepenses'] }}</td>
+                                
                             </tr>
                         @endif
                         @endforeach

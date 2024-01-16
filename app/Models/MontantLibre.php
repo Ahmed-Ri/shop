@@ -19,4 +19,5 @@ class MontantLibre extends Model
     {
         return $this->hasMany(Registre::class);
     }
+    const MAX_QUANTITY = 10;
 }

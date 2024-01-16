@@ -18,12 +18,31 @@
     {{-- <a href="{{ route('card.index') }}"> <img src="/assets/images/caisse.png" alt=""><span class="badge bg-secondary mb-2 ">{{ Cart::count() }}</span> </a> --}}
         <a href="{{ route('card.index') }}"><button type="button" class="btn btn-primary text-light btn-sm "> Retour a la caisse <span class="badge bg-primary text-light">{{ Cart::count() }}</span></button></a>
 
+   <div class="rechercheFlex">
     <form class="search" action="{{ route('articles.search') }}" method="GET">
         <div class="input-group mt-2 ">
             <input type="text" name="query" class="form-control" placeholder="Rechercher un article">
             {{-- <button  class="btn btn-primary " type="submit"><img src="/assets/images/search.png" alt="" ></button>  --}}
         </div>
     </form>
+    <form class="trie" action="{{ route('articles.index') }}" method="GET">
+        <select name="category" onchange="this.form.submit()" class="custom-dropdown">
+            <option value="">Trier par catégorie</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->nomCategorie }}" 
+                    {{ (request('category') == $category->nomCategorie) ? 'selected' : '' }}>
+                    {{ $category->nomCategorie }}
+                </option>
+            @endforeach
+        </select>
+    </form>
+   <form action="{{ route('articles.index') }}" method="GET">
+    <div class="stock-info">
+        <p class="p1">Nombre d'article en stock: {{ $totalQuantity }}</p>
+        <p class="p2">Valeur du stock: {{ $totalValue }} € TTC</p>
+    </div>
+   </form>
+   </div>
     <!-- <a href="{{ route('card.index') }}"><button type="button" class="btn btn-warning text-light btn-sm ">< Retour a la caisse<span class="badge bg-warning text-danger">{{ Cart::count() }}</span></button>
 </a> -->
 
@@ -35,8 +54,8 @@
 <thead class="custom-thead">
 
     <tr>
-        <th scope="col">Categorie</th>
-        <th scope="col">Sous Cat.</th>
+        <th scope="col">Catégorie</th>
+        <th scope="col">Sous Catégorie</th>
         <th scope="col">Article</th>
         <th scope="col">Désignation</th>
         <th scope="col">photo</th>

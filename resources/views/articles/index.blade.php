@@ -56,8 +56,8 @@
     <tr>
         <th scope="col">Catégorie</th>
         <th scope="col">Sous Catégorie</th>
-        <th scope="col">Article</th>
-        <th scope="col">Désignation</th>
+        <th scope="col">Réference</th>
+        <th scope="col">Article</th>      
         <th scope="col">photo</th>
         <th scope="col">Marque</th>
         <th scope="col">Stock</th>
@@ -76,9 +76,9 @@
 
         <td>{{ $article->sousCategorie->categorie->nomCategorie }}</td>
         <td>{{ $article->sousCategorie->nomSousCategorie }}</td>
-        <td>{{ $article->nomArticle }}</td>
-        <td>{{ $article->designation }}</td>
-        <td> {{ $article->image }}</td>
+        <td>{{ $article->reference }}</td>
+        <td>{{ $article->nomArticle }}</td>     
+        <td> <img src="{{ $article->image }}" alt="" ></td>
         <td>{{ $article->marque }}</td>
         <td>{{ $article->stock }}</td>
         <td>{{ $article->getprix() }}</td>

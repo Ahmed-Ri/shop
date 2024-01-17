@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('nomArticle');
-            $table->text('designation');
+            $table->integer('reference');
+            $table->string('nomArticle');         
             $table->string('photo');
             $table->string('marque');
             $table->integer('stock')->unsigned();

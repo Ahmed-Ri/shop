@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/catalogue', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show');
 Route::get('/articles/search', [ArticleController::class, 'search'])->name('articles.search');
+Route::get('/fetch-article/{ref}', [ArticleController::class, 'fetchArticleByRef']);
+
 
 //Cart routes
 Route::get('/', [CardController::class, 'index'])->name('card.index');

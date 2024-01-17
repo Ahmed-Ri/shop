@@ -24,75 +24,77 @@ class CardController extends Controller
     {
         return view('cart.index');
     }
-public function Ajout_depense(Request $request){
-      // Valider les données reçues
-      $validatedData = $request->validate([
-        'montant' => 'required|numeric',
-        'nomProduit' => 'required|string',
-        'categorie' => 'required|string',
-    ]);
+    public function Ajout_depense(Request $request)
+    {
+        // Valider les données reçues
+        $validatedData = $request->validate([
+            'montant' => 'required|numeric',
+            'nomProduit' => 'required|string',
+            'categorie' => 'required|string',
+        ]);
 
-    // Créer une nouvelle dépense
-    Depense::create([
-        'nomDepense' => $validatedData['nomProduit'],
-        'MtDepense' => $validatedData['montant'],
-        'CategorieDepense' => $validatedData['categorie'],
-    ]); 
-    return redirect()->route('card.index')->with('success', 'La dépense à été ajouter ');
-}
-  public function Ajout_retour(Request $request){
-    // Valider les données reçues
-    $validatedData = $request->validate([
-      'montant' => 'required|numeric',
-      'nomProduit' => 'required|string',
-      'categorie' => 'required|string',
-  ]);
+        // Créer une nouvelle dépense
+        Depense::create([
+            'nomDepense' => $validatedData['nomProduit'],
+            'MtDepense' => $validatedData['montant'],
+            'CategorieDepense' => $validatedData['categorie'],
+        ]);
+        return redirect()->route('card.index')->with('success', 'La dépense à été ajouter ');
+    }
+    public function Ajout_retour(Request $request)
+    {
+        // Valider les données reçues
+        $validatedData = $request->validate([
+            'montant' => 'required|numeric',
+            'nomProduit' => 'required|string',
+            'categorie' => 'required|string',
+        ]);
 
-  // Créer une nouvelle retour
-  Retour::create([
-      'nomArticle' => $validatedData['nomProduit'],
-      'MontantRetour' => $validatedData['montant'],
-      'categorieRetour' => $validatedData['categorie'],
-  ]); 
-  return redirect()->route('card.index')->with('success', 'Le retour à été ajouter ');
-}
-public function getHistoriqueRetours()
-{
-    $retours = Retour::all(); 
-    return response()->json($retours);
-}
+        // Créer une nouvelle retour
+        Retour::create([
+            'nomArticle' => $validatedData['nomProduit'],
+            'MontantRetour' => $validatedData['montant'],
+            'categorieRetour' => $validatedData['categorie'],
+        ]);
+        return redirect()->route('card.index')->with('success', 'Le retour à été ajouter ');
+    }
+    public function getHistoriqueRetours()
+    {
+        $retours = Retour::all();
+        return response()->json($retours);
+    }
 
 
-    
+
     public function store(Request $request)
     {
-       // Gestion des articles normaux
-    if ($request->has('id_article')) {
-        $article = Article::find($request->id_article);
+        // Gestion des articles normaux
+        if ($request->has('id_article')) {
+            $article = Article::find($request->id_article);
 
-        if (!$article) {
-            return redirect()->route('articles.index')->withErrors(['error' => 'Article non trouvé !']);
-        }
-
-        $cartItem = Cart::search(function ($cartItem, $rowId) use ($article) {
-            return $cartItem->id == $article->id;
-        })->first();
-
-        if ($cartItem) {
-            // Vérifier si l'ajout dépasse le stock disponible
-            if ($cartItem->qty < $article->stock) {
-                Cart::update($cartItem->rowId, $cartItem->qty + 1);
-            } else {
-                return redirect()->route('articles.index')->withErrors(['error' => 'Vous avez dépassé le stock disponible.']);
+            if (!$article) {
+                return redirect()->route('articles.index')->withErrors(['error' => 'Article non trouvé !']);
             }
-        } else {
-            if ($article->stock > 0) {
-                Cart::add($article->id, $article->nomArticle, 1, $article->prixTTC)->associate('App\Models\Article');
+
+            $cartItem = Cart::search(function ($cartItem, $rowId) use ($article) {
+                return $cartItem->id == $article->id;
+            })->first();
+
+            if ($cartItem) {
+                // Vérifier si l'ajout dépasse le stock disponible
+                if ($cartItem->qty < $article->stock) {
+                    Cart::update($cartItem->rowId, $cartItem->qty + 1);
+                } else {
+                    return redirect()->route('articles.index')->withErrors(['error' => 'Vous avez dépassé le stock disponible.']);
+                }
             } else {
-                return redirect()->route('articles.index')->withErrors(['error' => 'Article indisponible !']);
+                if ($article->stock > 0) {
+                    Cart::add($article->id, $article->nomArticle, 1, $article->prixTTC)->associate('App\Models\Article');
+                } else {
+                    return redirect()->route('articles.index')->withErrors(['error' => 'Article indisponible !']);
+                }
             }
-        }
-    } elseif ($request->type === 'montantLibre') {
+        } elseif ($request->type === 'montantLibre') {
             // Gestion des montants libres
             try {
                 $montantLibre = MontantLibre::create([
@@ -102,18 +104,18 @@ public function getHistoriqueRetours()
                     'categorie' => $request->categorie,
                     // Autres champs nécessaires
                 ]);
-    
+
                 Cart::add($montantLibre->id, $montantLibre->nomArticle, 1, $montantLibre->prixTTC, ['maxQty' => 15]);
             } catch (\Exception $e) {
                 return redirect()->route('articles.index')->withErrors(['error' => 'Erreur lors de l\'ajout du montant libre.']);
             }
         }
-        
-    
+
+
         return redirect()->route('articles.index')->with('success', 'Article ajouté au panier');
     }
-    
-    
+
+
     // public function store(Request $request)
     // {
     //     // Vérifier le type de soumission : article régulier ou MontantLibre
@@ -130,7 +132,7 @@ public function getHistoriqueRetours()
     //             if ($article->stock == 0) {
     //                 return redirect()->route('articles.index')->withErrors(['error' => 'Article indisponible !']);
     //             }
-        
+
     //             //dd($request->id,$request->nomArticle,$request->prix);
     //             Cart::add($article->id, $article->nomArticle, 1, $article->prixTTC)->associate('App\Models\Article');
     //         }
@@ -143,13 +145,13 @@ public function getHistoriqueRetours()
     //             'categorie' => $request->categorie,
     //             // Autres champs nécessaires
     //         ]);
-    
+
     //         // Vérifier si MontantLibre a été créé avec succès avant de l'ajouter au panier
     //         if ($montantLibre) {
     //             Cart::add($montantLibre->id, $montantLibre->nomArticle, 1, $montantLibre->prixTTC);
     //         }
     //     }
-    
+
     //     return redirect()->route('articles.index')->with('success', 'Article ajouté au panier.');
     // }
     /**
@@ -210,6 +212,4 @@ public function getHistoriqueRetours()
         Cart::remove($rowId);
         return back()->with('success', 'Le produit a ete supprimer');
     }
-    
-      
 }

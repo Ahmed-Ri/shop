@@ -9,8 +9,8 @@ class Registre extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nomArticle',
-        'designation',
+        'reference',
+        'nomArticle',       
         'image',
         'marque',
         'stock',
@@ -40,7 +40,7 @@ class Registre extends Model
     }
     public function boutique()
     {
-        return $this->hasMany(Boutique::class);
+        return $this->belongsTo(Boutique::class);
     }
     
 }

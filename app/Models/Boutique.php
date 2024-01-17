@@ -19,10 +19,10 @@ class Boutique extends Model
        ];
        public function registre()
        {
-           return $this->belongsTo(Registre::class);
+           return $this->hasMany(Registre::class);
        }
        public function depense()
        {
-           return $this->belongsTo(Depense::class);
+           return $this->hasMany(Depense::class);
        }
 }

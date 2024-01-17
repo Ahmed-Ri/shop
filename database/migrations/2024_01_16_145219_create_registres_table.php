@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('registres', function (Blueprint $table) {
             $table->id();
+            $table->integer('reference')->nullable();
             $table->string('nomArticle')->nullable();
-            $table->text('designation')->nullable();
             $table->string('image')->nullable();
             $table->string('marque')->nullable();
             $table->integer('stock')->nullable();
@@ -31,12 +31,13 @@ return new class extends Migration
             $table->bigInteger('idArticle')->unsigned()->nullable();
             $table->bigInteger('idMontantLibre')->unsigned()->nullable();
             $table->bigInteger('idCommande')->unsigned()->nullable();
+            $table->bigInteger('idBoutique')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('idArticle')->references('id')->on('articles')->onDelete('cascade');
             $table->foreign('idMontantLibre')->references('id')->on('montant_libres')->onDelete('cascade');
             $table->foreign('idCommande')->references('id')->on('commandes')->onDelete('cascade');
-
+            $table->foreign('idBoutique')->references('id')->on('boutiques')->onDelete('cascade');
         });
     }
 

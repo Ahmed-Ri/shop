@@ -8,7 +8,9 @@
             <div> <button type="button" class="btn-close position-absolute end-0 me-1 " data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer d-flex flex-column align-items-center mt-2">
-                <input  type="text" class="form-control" placeholder="Saisir désignation ou code" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <input type="text" id="articleRefInput" class="form-control" placeholder="Saisir désignation ou code" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <button id="fetchArticle" onclick="fetchArticleData()">Rechercher Article</button>
+
                 <button id="btnAjouter" class="btn btn-primary" data-bs-target="#exampleModalToggle10" data-bs-toggle="modal">Montant libre</button>
                 <a href="{{ route('articles.index') }}"> <button id="btnAjouter" class="btn btn-primary">Sélectionner depuis le catalogue</button>
                 </a>
@@ -57,3 +59,5 @@
         </div>
     </div>
 </div>
+<!-- Modal Article -->
+<!-- Modal Article -->

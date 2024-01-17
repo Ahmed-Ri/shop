@@ -19,9 +19,9 @@ class RegistreSeeder extends Seeder
             $commandeId = DB::table('commandes')->inRandomOrder()->first()->id;
             DB::table('registres')->insert([
                 'idCommande' => $commandeId,
-                'nomArticle' => $faker->word,
-                'designation' => $faker->sentence,
-                'image' =>'images/logo.png',
+                'reference' => $faker->numberBetween(1,8),
+                'nomArticle' => $faker->word,               
+                'image' =>'public/images/logo.png',
                 'marque'=>$faker->word,
                 'stock'=>$faker->numberBetween(1,20),
                 'prixHT'=>$faker->randomFloat(2, 1, 100),
@@ -39,6 +39,7 @@ class RegistreSeeder extends Seeder
                 'idArticle' => $faker->numberBetween(1, 10), // Assuming 10 sous categories
                 'idCommande' => $faker->numberBetween(1, 10), 
                 'idMontantLibre' => $faker->numberBetween(1, 10), 
+                'idBoutique' => $faker->numberBetween(1, 10), 
             ]);
         }
     }

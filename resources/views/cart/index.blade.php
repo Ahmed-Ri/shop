@@ -61,6 +61,7 @@
     @include('modal.depense')
     @include('modal.retour')
     @include('modal.historiqueRetour')
+    @include('modal.AjoutRetour')
 @endsection
 @section('extra-js')
     <script>

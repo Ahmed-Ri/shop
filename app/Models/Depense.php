@@ -15,6 +15,6 @@ class Depense extends Model
        ];
        public function boutique()
     {
-        return $this->hasMany(Boutique::class);
+        return $this->belongsTo(Boutique::class);
     }
 }

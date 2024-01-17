@@ -24,8 +24,8 @@ class BoutiqueSeeder extends Seeder
                 'adresse'=> $faker->word,
                 'telephone'=>$faker->numberBetween(1,20),
                 'mail'=> $faker->email,
-                'idRegistre' => $faker->numberBetween(1, 10),
-                'idDepense' => $faker->numberBetween(1, 10),
+                
+                
             ]);
         }
     }

@@ -19,8 +19,9 @@ class DepenseSeeder extends Seeder
             DB::table('depenses')->insert([
                 'nomDepense' => $faker->word,
                 'MtDepense'=>$faker->randomFloat(2, 1, 100),
-                'CategorieDepense'=>$faker->word,           
-                           
+                'CategorieDepense'=>$faker->word,  
+                         
+                'idBoutique' => $faker->numberBetween(1, 10),          
                 
                
             ]);

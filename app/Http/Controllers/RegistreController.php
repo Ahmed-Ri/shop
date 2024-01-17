@@ -103,8 +103,8 @@ class RegistreController extends Controller
 
                     // Configuration du registre pour un article
                     $registre->idArticle = $article->id;
-                    $registre->nomArticle = $item->model->nomArticle;
-                    $registre->designation = $article->designation;
+                    $registre->reference = $article->reference;
+                    $registre->nomArticle = $item->model->nomArticle;                    
                     $registre->image = $article->image;
                     $registre->marque = $article->marque;
                     $registre->stock = $article->stock;

@@ -108,11 +108,15 @@ class ArticleController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+   // ArticleController.php
+public function fetchArticleByRef($ref)
+{
+    $article = Article::where('reference', $ref)->first();
+    if ($article) {
+        return response()->json($article);
+    } else {
+        return response()->json(['message' => 'Article non trouvé'], 404);
     }
+}
+
 }

@@ -16,8 +16,11 @@ return new class extends Migration
             $table->string('nomDepense');
             $table->string('MtDepense');
             $table->string('CategorieDepense');
-            
+            $table->bigInteger('idBoutique')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('idBoutique')->references('id')->on('boutiques')->onDelete('cascade');
+
 
         });
     }

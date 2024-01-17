@@ -15,9 +15,9 @@ class ArticlesSeeder extends Seeder
 
         foreach (range(1, 20) as $index) {
             DB::table('articles')->insert([
+                'reference' => $faker->numberBetween(1000, 9999),
                 'nomArticle' => $faker->word,
-                'designation' => $faker->sentence,
-                'photo' =>'images/produit1.jpg',
+                'photo' =>'public/images/logo.png',
                 'marque'=>$faker->word,
                 'stock'=>$faker->numberBetween(1,20),
                 'prixHT'=>$faker->randomFloat(2, 1, 100),

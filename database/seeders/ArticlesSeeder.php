@@ -17,15 +17,15 @@ class ArticlesSeeder extends Seeder
             DB::table('articles')->insert([
                 'reference' => $faker->numberBetween(1000, 9999),
                 'nomArticle' => $faker->word,
-                'photo' =>'public/images/logo.png',
+                'photo' => $faker->imageUrl($width = 60, $height = 60, 'fashion'),
                 'marque'=>$faker->word,
                 'stock'=>$faker->numberBetween(1,20),
                 'prixHT'=>$faker->randomFloat(2, 1, 100),
                 'TVA'=>$faker->numberBetween(1,20),
                 'prixTTC'=>$faker->randomFloat(2, 1, 100),
                 'slug'=> $faker->slug,
-                // Add other fields
-                'idSousCategorie' => $faker->numberBetween(1, 10), // Assuming 10 sous categories
+                
+                'idSousCategorie' => $faker->numberBetween(1, 10),
             ]);
         }
     }

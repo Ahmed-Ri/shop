@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+
 <!-- Modal Article -->
 <div class="modal" id="articleModal" tabindex="-1">
     <div class="modal-dialog modal-custom">
@@ -19,7 +11,11 @@
                 <!-- Les détails de l'article seront remplis ici via JavaScript -->
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary">Ajouter</button>
+                <form action="{{ route('retourArticle') }}" method="post">
+            @csrf
+            <input type="hidden" name="id_article" value="">
+            <button type="submit" class="btn btn-dark">Ajouter</button>
+        </form>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
             </div>
         </div>
@@ -27,12 +23,16 @@
 </div>
   
 
-
-
-
-</body>
-</html>
 <script>
+    document.getElementById('articleRefInput').addEventListener('keypress', function(event) {
+    
+    if (event.key === 'Enter') {
+        // Empêcher le comportement par défaut du formulaire si nécessaire
+        event.preventDefault();
+        // Appeler la fonction de recherche
+        fetchArticleData();
+    }
+});
     function fetchArticleData() {
         var ref = document.getElementById('articleRefInput').value;
         fetch('/fetch-article/' + ref)
@@ -63,9 +63,14 @@
     `;
     // Mettre à jour le contenu du modal
     modalBody.innerHTML = content;
+ // Ajouter l'ID de l'article au formulaire
+ var inputHidden = document.querySelector('input[name="id_article"]');
+    if (inputHidden) {
+        inputHidden.value = article.id;
+    }
 
-        // Ouvrir le modal, en supposant que vous utilisez Bootstrap
-        $('#articleModal').modal('show');
-        $('#exampleModalToggleRetour').modal('hide');
+    // Affichage du modal
+    $('#articleModal').modal('show');
+    $('#exampleModalToggleRetour').modal('hide');
     }
 </script>

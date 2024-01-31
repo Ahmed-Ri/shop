@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('registres', function (Blueprint $table) {
             $table->id();
-            $table->integer('reference')->nullable();
+            $table->string('RefCommande')->nullable();
+            $table->integer('RefArticle')->nullable();
             $table->string('nomArticle')->nullable();
-            $table->string('image')->nullable();
             $table->string('marque')->nullable();
             $table->integer('stock')->nullable();
-            $table->decimal('prixHT')->nullable();
-            $table->integer('TVA')->nullable();
-            $table->decimal('prixTTC')->nullable();
-            $table->decimal('MtCommandeTTC')->nullable();
+            $table->decimal('prixHT',10,2)->nullable();
+            $table->decimal('TVA',10,2)->nullable();
+            $table->decimal('prixTTC',10,2)->nullable();
+            $table->decimal('MtCommandeTTC',10,2)->nullable();
             $table->integer('quantitéArticle')->nullable();
             $table->integer('QteArticleTotal')->nullable();
             $table->string('MoyenDePaiement')->nullable();

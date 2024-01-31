@@ -9,10 +9,8 @@
             </div>
             <div class="modal-footer d-flex flex-column align-items-center mt-2">
                 <input type="text" id="articleRefInput" class="form-control" placeholder="Saisir désignation ou code" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <button id="fetchArticle" onclick="fetchArticleData()">Rechercher Article</button>
-
                 <button id="btnAjouter" class="btn btn-primary" data-bs-target="#exampleModalToggle10" data-bs-toggle="modal">Montant libre</button>
-                <a href="{{ route('articles.index') }}"> <button id="btnAjouter" class="btn btn-primary">Sélectionner depuis le catalogue</button>
+                <a href="{{ route('index.retour') }}"> <button id="btnAjouter" class="btn btn-primary">Sélectionner depuis le catalogue</button>
                 </a>
             </div>
         </div>
@@ -31,7 +29,7 @@
             <div class="modal-footer d-flex flex-column align-items-center mt-2">
 
                  <!-- Formulaire pour saisir les informations de Montant Libre -->
-                 <form action="{{ route('Ajout_retour') }}" method="post">
+                 <form action="{{ route('retour_Montant_Libre') }}" method="post">
                     @csrf
                     <input type="hidden" name="type" value="montantLibre">
                     <input type="text" class="form-control my-2" name="nomProduit" placeholder="Nom du produit" required>
@@ -42,13 +40,8 @@
                     <select class="form-select my-2" name="categorie" required>
                         <option value="">Catégorie de retour</option>
                         <option value="produit">Produit</option>
-                        <option value="autre">Autres</option>
-                        
-                        <!-- Ajoutez plus d'options ici si nécessaire -->
+                        <option value="autre">Autres</option>                                             
                     </select>
-
-                   
-
                     <div class="modal-footer">   
                           <button id="confirm" class="btn btn-primary" data-bs-target="" data-bs-toggle="modal">Ajouter</button>
                          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Annuler</button>
@@ -59,5 +52,4 @@
         </div>
     </div>
 </div>
-<!-- Modal Article -->
-<!-- Modal Article -->
+

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('montant_libres', function (Blueprint $table) {
             $table->id();
             $table->string('nomArticle')->nullable();
-            $table->decimal('prixTTC')->nullable();
+            $table->decimal('prixTTC',10,2)->nullable();
             $table->string('OrigineDeVente')->nullable();
             $table->string('categorie')->nullable();
             

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CardController;
-use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\RegistreController;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -12,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 //Article routes
 Route::get('/catalogue', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/catalogue/retour', [ArticleController::class, 'index_retour'])->name('index.retour');
 Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show');
 Route::get('/articles/search', [ArticleController::class, 'search'])->name('articles.search');
 Route::get('/fetch-article/{ref}', [ArticleController::class, 'fetchArticleByRef']);
@@ -20,8 +20,9 @@ Route::get('/fetch-article/{ref}', [ArticleController::class, 'fetchArticleByRef
 //Cart routes
 Route::get('/', [CardController::class, 'index'])->name('card.index');
 Route::post('/panier/ajouter', [CardController::class, 'store'])->name('card.store');
+Route::post('/panier/retourArticle', [CardController::class, 'retourArticle'])->name('retourArticle');
 Route::post('/Depense/ajouter', [CardController::class, 'Ajout_depense'])->name('Ajout_depense');
-Route::post('/Retour/ajouter', [CardController::class, 'Ajout_retour'])->name('Ajout_retour');
+Route::post('/Retour/ajouter', [CardController::class, 'retour_Montant_Libre'])->name('retour_Montant_Libre');
 Route::get('/historique-retours', [CardController::class, 'getHistoriqueRetours']);
 Route::post('/panier/{rowId}', [CardController::class, 'update'])->name('card.update');
 Route::delete('/panier/{rowId}', [CardController::class, 'destroy'])->name('card.destroy');

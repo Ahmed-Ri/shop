@@ -17,12 +17,11 @@ class CommandeSeeder extends Seeder
 
         foreach (range(1, 10) as $index) {
             DB::table('commandes')->insert([
-                'nomArticle' => $faker->word,
+                
+                'ref' => 'CMD' . time() . $index,
                 'MtCommandeTTC'=>$faker->randomFloat(2, 1, 100),
                 'QteArticleTotal'=>$faker->numberBetween(1,20),            
-                           
-                
-               
+                                       
             ]);
         }
     }

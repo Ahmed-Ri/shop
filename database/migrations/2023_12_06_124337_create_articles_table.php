@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('photo');
             $table->string('marque');
             $table->integer('stock')->unsigned();
-            $table->decimal('prixHT');
-            $table->integer('TVA');
-            $table->decimal('prixTTC');
+            $table->decimal('prixHT',10,2);
+            $table->decimal('TVA',10,2)->nullable();
+            $table->decimal('prixTTC',10,2);
             $table->string('slug')->unique();
             $table->bigInteger('idSousCategorie')->unsigned();
             $table->timestamps();

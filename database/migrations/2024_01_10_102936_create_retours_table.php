@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('retours', function (Blueprint $table) {
             $table->id();
             $table->string('nomArticle');
-            $table->decimal('MontantRetour');
+            $table->decimal('MontantRetour',10,2);
             $table->string('categorieRetour');
             $table->bigInteger('idArticle')->unsigned()->nullable();
             $table->timestamps();

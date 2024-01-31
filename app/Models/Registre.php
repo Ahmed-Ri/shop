@@ -9,9 +9,9 @@ class Registre extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'reference',
+        'RefCommande',
+        'RefArticle',
         'nomArticle',       
-        'image',
         'marque',
         'stock',
         'prixHT',

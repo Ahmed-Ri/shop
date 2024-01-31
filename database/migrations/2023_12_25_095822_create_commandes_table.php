@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->string('nomArticle');
+            $table->string('ref');
             $table->integer('QteArticleTotal');
-            $table->decimal('MtCommandeTTC');
+            $table->decimal('MtCommandeTTC',10,2);
             $table->timestamps();
         });
     }

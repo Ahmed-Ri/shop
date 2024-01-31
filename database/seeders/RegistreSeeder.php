@@ -19,9 +19,10 @@ class RegistreSeeder extends Seeder
             $commandeId = DB::table('commandes')->inRandomOrder()->first()->id;
             DB::table('registres')->insert([
                 'idCommande' => $commandeId,
-                'reference' => $faker->numberBetween(1,8),
+                'RefCommande'=>'CMD' . time() . $index,
+                'RefArticle' => $faker->numberBetween(1000, 9999),
                 'nomArticle' => $faker->word,               
-                'image' =>'public/images/logo.png',
+                
                 'marque'=>$faker->word,
                 'stock'=>$faker->numberBetween(1,20),
                 'prixHT'=>$faker->randomFloat(2, 1, 100),

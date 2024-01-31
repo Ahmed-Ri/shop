@@ -41,7 +41,7 @@ class CardController extends Controller
         ]);
         return redirect()->route('card.index')->with('success', 'La dépense à été ajouter ');
     }
-    public function Ajout_retour(Request $request)
+    public function retour_Montant_Libre(Request $request)
     {
         // Valider les données reçues
         $validatedData = $request->validate([
@@ -115,64 +115,45 @@ class CardController extends Controller
         return redirect()->route('articles.index')->with('success', 'Article ajouté au panier');
     }
 
-
-    // public function store(Request $request)
-    // {
-    //     // Vérifier le type de soumission : article régulier ou MontantLibre
-    //     if ($request->type === 'article') {
-    //         // Ajouter un article de la table 'articles'
-    //         $article = Article::find($request->id_article);
-    //         if ($article) {
-    //             $duplicata = Cart::search(function ($cartItem, $rowId) use ($request) {
-    //                 return $cartItem->id == $request->id_article;
-    //             });
-    //             if ($duplicata->isNotEmpty()) {
-    //                 return redirect()->route('articles.index')->with('success', 'le article a déja été ajouté' . ' (' . Cart::count() . ' articles)');
-    //             }
-    //             if ($article->stock == 0) {
-    //                 return redirect()->route('articles.index')->withErrors(['error' => 'Article indisponible !']);
-    //             }
-
-    //             //dd($request->id,$request->nomArticle,$request->prix);
-    //             Cart::add($article->id, $article->nomArticle, 1, $article->prixTTC)->associate('App\Models\Article');
-    //         }
-    //     } elseif ($request->type === 'montantLibre') {
-    //         // Ajouter un MontantLibre
-    //         $montantLibre = MontantLibre::create([
-    //             'nomArticle' => $request->nomProduit,
-    //             'prixTTC' => $request->montant,
-    //             'OrigineDeVente' => $request->origineDeVente,
-    //             'categorie' => $request->categorie,
-    //             // Autres champs nécessaires
-    //         ]);
-
-    //         // Vérifier si MontantLibre a été créé avec succès avant de l'ajouter au panier
-    //         if ($montantLibre) {
-    //             Cart::add($montantLibre->id, $montantLibre->nomArticle, 1, $montantLibre->prixTTC);
-    //         }
-    //     }
-
-    //     return redirect()->route('articles.index')->with('success', 'Article ajouté au panier.');
-    // }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+    //retour Article
+    public function retourArticle(Request $request)
+{
+    // Assurez-vous que l'ID de l'article est transmis
+    if (!$request->has('id_article')) {
+        return redirect()->route('articles.index')->withErrors(['error' => 'ID de l\'article manquant.']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    $articleId = $request->id_article;
+    $article = Article::find($articleId);
 
-    /**
-     * Update the specified resource in storage.
-     */
+    if (!$article) {
+        return redirect()->route('articles.index')->withErrors(['error' => 'Article non trouvé !']);
+    }
+    $cartItem = Cart::search(function ($cartItem, $rowId) use ($articleId) {
+        return $cartItem->id == $articleId;
+    })->first();
+
+    // Vérifier si l'article est dans le panier
+    if ($cartItem) {
+        // Si la quantité est plus que 1, décrémentez-la
+        if ($cartItem->qty > 1) {
+            Cart::update($cartItem->rowId, $cartItem->qty - 1);
+        } else {
+            // Si la quantité est 1, retirez l'article du panier
+            Cart::remove($cartItem->rowId);
+        }
+
+      
+        return redirect()->route('articles.index');
+    } else {
+        // Ajouter l'article avec un prix TTC négatif
+        Cart::add($article->id, $article->nomArticle, 1, -1 * $article->prixTTC)->associate('App\Models\Article');
+        return redirect()->route('articles.index');}
+}
+
+
+   
+   
     public function update(Request $request, $rowId)
     {
         $data = $request->json()->all();
@@ -195,21 +176,18 @@ class CardController extends Controller
         return response()->json(['success' => 'Cart Quantity Has Been Updated']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     // public function clearCart()
     // {
     //     Cart::destroy(); // Clears the cart
     //     // You can add additional logic or response as needed
     //     return response()->json(['message' => 'Cart cleared successfully']);
     // }
-    // Add this method to your CardController
-    // public function clearCart()
+    
 
     public function destroy($rowId)
     {
         Cart::remove($rowId);
-        return back()->with('success', 'Le produit a ete supprimer');
+        return back()->with('success', 'Le produit à été supprimer');
     }
 }

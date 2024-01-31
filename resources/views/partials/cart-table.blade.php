@@ -1,5 +1,5 @@
   <div class="row">
-        <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+        <div class="col-lg-12 p-2 rounded shadow-sm mb-5 ">
 
           <!-- Shopping cart table -->
           <div class="table-responsive">
@@ -11,10 +11,10 @@
                     <div class="py-2  text-uppercase">Article</div>
                   </th>
                   <th scope="col" class="border-0 bg-light text-center">
-                    <div class="py-2 text-uppercase">Quantité</div>
+                    <div class="py-2 text-uppercase">Quantite</div>
                   </th>
                   <th scope="col" class="border-0 bg-light text-center">
-                    <div class="py-2  text-uppercase">Prix</div>
+                    <div class="py-2  text-uppercase">Prix total ttc</div>
                   </th>
 
                   <th scope="col" class="border-0 bg-light  text-center">
@@ -47,7 +47,8 @@
                                 <option value="{{ $i }}" {{ $article->qty == $i ? 'selected' : '' }}>{{ $i }}</option>
                             @endfor
                         </select>
-                        @else
+                      
+                    @else
                     {{ $article->qty }}
                     @endif
                 </td>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
             $table->string('nomDepense');
-            $table->string('MtDepense');
+            $table->decimal('MtDepense',10,2);
             $table->string('CategorieDepense');
             $table->bigInteger('idBoutique')->unsigned()->nullable();
             $table->timestamps();

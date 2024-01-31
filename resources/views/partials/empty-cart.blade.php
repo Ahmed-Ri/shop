@@ -10,10 +10,10 @@
                 <div class="py-2  text-uppercase">Article</div>
               </th>
               <th scope="col" class="border-0 bg-light text-center">
-                <div class="py-2 text-uppercase">Quantité</div>
+                <div class="py-2 text-uppercase">Quantite</div>
               </th>
               <th scope="col" class="border-0 bg-light text-center">
-                <div class="py-2  text-uppercase">Prix</div>
+                <div class="py-2  text-uppercase">Prix total ttc</div>
               </th>
 
               <th scope="col" class="border-0 bg-light  text-center">

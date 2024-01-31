@@ -30,16 +30,16 @@
 .container {
     margin-top: 70px;
     width: 1200px;
-    margin-right: 70px;
+    /* margin-right: 70px; */
 }
 .custom-thead th {
     background-color: #d9d9d9;
 }
 
-td,
+/* td,
 tr {
     width: 5px;
-}
+} */
 
 
 .thead-primary {
@@ -49,6 +49,13 @@ tr {
     margin-top: -30px;
     margin-right: -12px;
 }
+.custom-toggler {
+    margin-right: 5px;
+    
+        border: none; /* Supprime la bordure */
+  
+  }
+
 
 /* barre de recherche */
 .form-control::placeholder { 
@@ -100,6 +107,121 @@ tr {
 .p2{
     margin-top: -7px;
 }
+.form-control{
+    padding: 9px;
+}
+.form-control, .custom-dropdown {
+    font-size: 1rem; /* Taille de la police relative */
+}
+.table-responsive {
+    display: block;
+}
+
+@media (max-width: 1200px) { /* Pour les téléphones mobiles */
+   
+    .stock-info{
+        display: none;
+    }
+    .search, .trie {
+        
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .trie{
+margin-top: 17px;
+    }
+}
+/* Media queries pour différents points de rupture */
+@media (min-width: 480px) and (max-width: 768px) { /* Pour les tablettes et appareils plus petits */
+    .search, .trie {
+        
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .trie{
+        margin-top: 17px;
+            }
+
+    
+}
+@media  (max-width: 420px){
+    .rechercheFlex, .autres-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search, .trie {
+        
+        margin: 10px 0; /* Ajustement des marges */
+    }
+    .trie{
+        margin-top: -2px;
+            }
+    .stock-info{
+        display: none;
+    }
+    .form-control, .custom-dropdown {
+        font-size: 0.9rem; /* Taille de police plus petite pour les petits écrans */
+    }
+    .stock-info{
+        display: none;
+    }
+    .table-responsive {
+        display: none; /* Masquer le tableau */
+    }
+    .article-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .article-image img {
+        width: 60px; /* Ajustez la taille de l'image selon vos besoins */
+        height: auto;
+        margin-right: 10px;
+    }
+
+    .article-info {
+        flex-grow: 1;
+        padding: 0 10px;
+    }
+
+    .article-nom {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .article-prix {
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .article-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .article-actions form {
+        margin-bottom: 5px;
+    }
+
+    .article-actions button {
+        font-size: 0.8rem;
+        width: 60px;
+    }
+    .logo {
+        margin-left: 6px;
+    }
+}
+
+
 
 
 /* Caisse */
@@ -169,48 +291,7 @@ h3{
     margin-left: 130px;
     color: #aaaaaa;
 }
-tbody{
-    height: 170px;
-}
 
-/* Ticket css */
-body {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-   
-}
-
-.ticket {
-    border: 1px solid #000;
-    padding: 20px;
-    width: 300px;
-}
-
-.ticket h2 {
-    text-align: center;
-}
-
-.ticket p {
-    margin: 5px 0;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-
-
-th, td {
-    padding: 5px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
 h5{
     margin-left: 20px;
     margin-top: 7px;

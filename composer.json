@@ -9,6 +9,7 @@
         "consoletvs/charts": "^6.6",
         "guzzlehttp/guzzle": "^7.2",
         "hardevine/shoppingcart": "^3.2",
+        "intervention/image": "^3.3",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",

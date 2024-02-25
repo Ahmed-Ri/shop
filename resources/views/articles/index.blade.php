@@ -50,7 +50,7 @@
         </div>
 
 
-        <div class="table-responsive">
+        <div class="table-responsive" id="catalogue-responsive">
             <table id="table" class="table table-secondary-emphasis table-striped mt-3 ">
                 <thead class="custom-thead">
                     <tr>
@@ -106,7 +106,7 @@
         var articles = @json($articles); // Passez les données des articles à JavaScript
 
         window.onload = function() {
-            if (window.innerWidth <= 422) {
+            if (window.innerWidth <= 577) {
                 var container = document.createElement('div');
 
                 // Vérifiez s'il y a des articles retournés
@@ -120,7 +120,7 @@
                         var addToCartUr2 = "{{ route('article.show', 'slug_placeholder') }}"; // Mettez un espace réservé pour le slug
 
                         card.innerHTML = ` <div class="article-image">
-                            <img src="${article.image}" alt="${article.nomArticle}">
+                            <img src="${article.photo}" alt="${article.nomArticle}">
                         </div>
                         <div class="article-info">
                             <div class="article-nom">${article.nomArticle}</div>

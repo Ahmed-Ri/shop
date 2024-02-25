@@ -12,7 +12,7 @@
       <div style="flex: 1; padding: 10px;margin-left: 20px;margin-top: 20px;box-shadow:1px 1px 1px 1px rgba(181, 181, 181, 0.2);"class="card">
           <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
       </div>
-      <div style="flex: 1; padding: 10px; margin-left: 400px;margin-top: 20px;box-shadow: 1px 1px 1px 1px rgba(165, 165, 165, 0.2);"class="card">
+      <div id="marginnone" style="flex: 1; padding: 10px; margin-left: 400px;margin-top: 20px;box-shadow: 1px 1px 1px 1px rgba(165, 165, 165, 0.2);"class="card">
           <canvas id="RDChart" style="width: 100%; height: 100%;"></canvas>
       </div>
   </div>
@@ -24,6 +24,39 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
+    function adjustStylesForMobile() {
+        var graph = document.getElementById('graph');
+        var divs = graph.getElementsByTagName('div');
+
+        // Vérifie si la largeur de l'écran est inférieure ou égale à 
+        if (window.innerWidth <= 720) {
+            graph.style.flexDirection = 'column';
+            graph.style.width = '100%';
+
+            for (var i = 0; i < divs.length; i++) {
+                divs[i].style.marginLeft = '0';
+                divs[i].style.width = '100%';
+                divs[i].style.boxSizing = 'border-box';
+                divs[i].style.height = '100%';
+                
+            }
+        } else {
+            // Style pour les écrans plus larges
+            graph.style.flexDirection = 'row';
+            graph.style.width = '1100px';
+
+            // Vous pouvez réajuster les styles pour les écrans plus larges ici si nécessaire
+        }
+    }
+
+    // Ajuster les styles lors du chargement initial
+    adjustStylesForMobile();
+
+    // Ajuster les styles lors du redimensionnement de la fenêtre
+    window.onresize = adjustStylesForMobile;
+
+
  const ctx = document.getElementById('myChart');
 
 // Préparation des données

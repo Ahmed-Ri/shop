@@ -72,6 +72,7 @@ class ArticleController extends Controller
     {
         $query = $request->input('query');
         $articles = Article::where('nomArticle', 'like', "%$query%")->get();
+        
 
         // Récupérer toutes les catégories pour les passer à la vue
         $categories = Categorie::all();
@@ -79,7 +80,7 @@ class ArticleController extends Controller
         // Calculer la quantité totale en stock et la valeur totale des stocks
         $totalQuantity = $articles->sum('stock');
         $totalValue = $articles->reduce(function ($carry, $article) {
-            return $carry + ($article->stock * $article->prixTTC); // Remplacez 'prixTTC' par le nom de votre champ de prix dans la base de données
+            return $carry + ($article->stock * $article->prixTTC); 
         }, 0);
 
         return view('articles.index', compact('articles', 'categories', 'totalQuantity', 'totalValue'));

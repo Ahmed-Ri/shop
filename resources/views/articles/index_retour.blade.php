@@ -78,7 +78,7 @@
         <td>{{ $article->sousCategorie->nomSousCategorie }}</td>
         <td>{{ $article->reference }}</td>
         <td>{{ $article->nomArticle }}</td>     
-        <td> <img src="{{ $article->image }}" alt="" ></td>
+        <td> <img src="{{ $article->photo }}" alt="" ></td>
         <td>{{ $article->marque }}</td>
         <td>{{ $article->stock }}</td>
         <td>{{ $article->getprix() }}</td>
@@ -114,3 +114,48 @@
 
 
 @endsection
+
+<script>
+    var articles = @json($articles); // Passer les données des articles à JavaScript
+
+    window.onload = function() {
+        if (window.innerWidth <= 577) {
+            var container = document.createElement('div');
+
+            // Vérifier s'il y a des articles retournés
+            if (articles.length > 0) {
+                articles.forEach(function(article) {
+                    var card = document.createElement('div');
+                    card.className = 'article-card';
+
+                    // Ajouter la photo, le prix et les boutons ici
+                    var addToCartUrl = "{{ route('retourArticle') }}";
+                    
+                    card.innerHTML = `<div class="article-image">
+                            <img src="${article.photo}" alt="${article.nomArticle}">
+                        </div>
+                        <div class="article-info">
+                            <div class="article-nom">${article.nomArticle}</div>
+                            <div class="article-prix">${article.prixTTC}€</div>
+                        </div>
+                        <div class="article-actions">
+                            <form action="${addToCartUrl}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id_article" value="${article.id}">
+                                <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
+                            </form>
+                        </div>`;
+
+                    container.appendChild(card);
+                });
+            } else {
+                // Gérer le cas où aucun article n'est trouvé
+                var noArticlesMessage = document.createElement('div');
+                noArticlesMessage.innerText = 'Aucun article trouvé.';
+                container.appendChild(noArticlesMessage);
+            }
+
+            document.body.appendChild(container);
+        }
+    };
+</script>

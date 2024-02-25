@@ -16,7 +16,7 @@
         </ul>
       </div>
     
-      <div>@include('modal.ajout')</div>
+      <div class="BtnModal" >@include('modal.ajout')</div>
     </div>
   </div>
  

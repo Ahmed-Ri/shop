@@ -4,7 +4,7 @@
       <!-- Shopping cart table -->
       <div class="table-responsive">
         <table class="table">
-          <thead>
+          <thead class="carte-empty">
             <tr>
               <th scope="col" class="border-0 bg-light text-center">
                 <div class="py-2  text-uppercase">Article</div>

@@ -96,7 +96,7 @@
               <div class="modal-footer">
                   <button class="btn btn-primary" id="btnEditerTicket">Éditer Ticket</button>
                   <button class="btn btn-primary" id="btnAnnuler" data-bs-target=""
-                      data-bs-toggle="modal">Annuler</button>
+                      data-bs-toggle="modal">Fermer</button>
               </div>
           </div>
       </div>

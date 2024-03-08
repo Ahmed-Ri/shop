@@ -12,37 +12,37 @@
               <div class="modal-body">
                   <div class="form-check">
                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                          value="espece">
+                          value="ESPECE">
                       <label class="form-check-label" for="flexRadioDefault1">
-                          Espèce
+                          ESPECE
                       </label>
                   </div>
                   <div class="form-check">
                       <input class="form-check-input" type="radio" name="flexRadioDefault"
-                          id="flexRadioDefault1"value="carte">
+                          id="flexRadioDefault1"value="CARTE BANCAIRE">
                       <label class="form-check-label" for="flexRadioDefault1">
-                          Carte
+                          CARTE BANCAIRE
                       </label>
                   </div>
                   <div class="form-check">
                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                          value="tpe">
+                          value="TPE">
                       <label class="form-check-label" for="flexRadioDefault1">
                           TPE
                       </label>
                   </div>
                   <div class="form-check">
                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                          value="cheque">
+                          value="CHEQUE">
                       <label class="form-check-label" for="flexRadioDefault1">
-                          Chèque
+                          CHEQUE
                       </label>
                   </div>
                   <div class="form-check">
                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                          value="autres" checked>
+                          value="AUTRES" checked>
                       <label class="form-check-label" for="flexRadioDefault2">
-                          Autres
+                          AUTRES
                       </label>
                   </div>
               </div>
@@ -68,9 +68,7 @@
                   Avez-vous bien encaisser le montant de la vente ?
               </div>
               <div class="modal-footer">
-                  <!--
-          <button id="confirm" class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Oui</button>
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Non</button> -->
+
 
                   <button id="confirmPayment" class="btn btn-primary">Oui</button>
 
@@ -94,7 +92,8 @@
                   <p id="totalCommande">Total de la Commande : </p>
               </div>
               <div class="modal-footer">
-                  <button class="btn btn-primary" id="btnEditerTicket">Éditer Ticket</button>
+                  <button class="btn btn-primary" id="btnEditerTicket" data-bs-target="#exampleModalToggle9">Éditer
+                      Ticket</button>
                   <button class="btn btn-primary" id="btnAnnuler" data-bs-target=""
                       data-bs-toggle="modal">Fermer</button>
               </div>
@@ -103,12 +102,14 @@
   </div>
   <div class="modal fade" id="modalTicketDeCaisse" aria-hidden="true" aria-labelledby="modalTicketDeCaisseLabel"
       tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="modalTicketDeCaisseLabel">Ticket de Caisse</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <h5 class="modal-title" id="modalTicketDeCaisseLabel">SHOP RADAR</h5>
+                  <button type="button" class="btn-close mb-3" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
+              <h4 class="modal-title text-center" style="font-weight: 400;">PLACE DU PONT, 69000</h4>
+              <h4 class="modal-title text-center" style="font-weight: 400;">DUPLICATA TIKCET</h4>
               <div class="modal-body">
                   <table class="table">
                       <thead>
@@ -116,7 +117,11 @@
                               <div class="article"
                                   data-name="{{ $article->model ? $article->model->nomArticle : $article->name }}"
                                   data-qty="{{ $article->qty }}" data-subtotal="{{ $article->subtotal }}"
-                                  data-total=" {{ getPrice(Cart::subtotal()) }} ">
+                                  data-total=" {{ getPrice(Cart::subtotal()) }} "
+                                  data-prixht="{{ $article->model ? $article->model->prixHT : $article->prixHT }}"
+                                  data-prixttc="{{ $article->model ? $article->model->prixTTC : $article->prixTTC }}"
+                                  data-tva="{{ $article->model ? $article->model->TVA : $article->TVA }}">
+
                                   <!-- Affichage de l'article -->
                               </div>
                           @endforeach
@@ -150,6 +155,7 @@
               .then(data => {
                   // Fermer le modal précédent
                   $('#exampleModalToggle2').modal('hide');
+
 
                   // Assurez-vous que le modal précédent est complètement fermé avant d'ouvrir le nouveau
                   $('#exampleModalToggle2').on('hidden.bs.modal', function(e) {
@@ -186,28 +192,119 @@
       document.getElementById('btnEditerTicket').addEventListener('click', function() {
           var detailsCommandeHTML = '';
           var articles = document.querySelectorAll('.article');
+          var moyenDePaiementChoisi = sessionStorage.getItem('moyenDePaiementChoisi');
+
+          // Commencez par définir le contenu HTML pour le <thead> et le début du <tbody>
+          detailsCommandeHTML += `
+    <table>
+        <thead>
+            <tr>
+                <th>Qté</th>             
+                <th>ARTICLE</th>
+                <th>PU</th>
+                <th>TTC</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+          // Boucle pour ajouter les lignes du <tbody>
 
           articles.forEach(function(article) {
               var nomArticle = article.getAttribute('data-name');
               var quantity = article.getAttribute('data-qty');
-              var total = article.getAttribute('data-total');
-
+              var prixTTC = article.getAttribute('data-prixttc');
               var subtotal = article.getAttribute('data-subtotal');
 
               detailsCommandeHTML += `
-          <tr>
-            <td>${nomArticle}</td>
-            
-           
-            <td>${quantity}</td>
-            <td>${subtotal}</td>
-            <td>${subtotal}</td>
-            <td>${total}</td>
-            
-          </tr>
-        `;
+            <tr>
+                <td>${quantity}X</td>
+                <td>${nomArticle}</td>
+                <td>${prixTTC}</td>
+                <td>${subtotal}</td>
+            </tr>`;
           });
+          var totalGeneral = 0;
+          articles.forEach(function(article) {
+              var subtotal = parseFloat(article.getAttribute('data-subtotal'));
+              totalGeneral += subtotal;
+          });
+          totalGeneral = totalGeneral.toFixed(2);
+          // Ajout de la ligne pour afficher le total général
+          detailsCommandeHTML += `
+    <tr>
+        <td colspan="2" style="font-size: 17px;font-weight: 100;" ><strong>TOTAL TTC EUR</strong></td>
+        <td></td>
+        <td><strong style="font-size: 17px;font-weight: 100;" >${totalGeneral}</strong></td>
+    </tr>`;
+          detailsCommandeHTML += `
+        </tbody>
+    </table>`;
 
+
+          // 2ème table
+          detailsCommandeHTML += `
+    <table>
+        <thead>
+            <tr>
+                <th>TX TVA</th>
+                <th>HT</th>
+                <th>TVA</th>
+                <th>TTC</th>
+            </tr>
+        </thead>
+        <tbody>`
+          // Initialisation des totaux
+          var totalHT = 0;
+          var totalTVA = 0;
+          var totalTTC = 0;
+
+          // Calcul des totaux HT, TVA et TTC et ajout des lignes pour chaque article
+          articles.forEach(function(article) {
+              var ht = parseFloat(article.getAttribute('data-prixht'));
+              var quantity = parseFloat(article.getAttribute('data-qty'));
+              var tva = parseFloat(article.getAttribute('data-tva'));
+              var subtotal = parseFloat(article.getAttribute('data-subtotal'));
+
+              var montantTVA = (tva / 100) * (ht * quantity);
+              montantTVA = montantTVA.toFixed(2);
+
+              detailsCommandeHTML += `
+        <tr>
+            <td>${tva}</td>
+            <td>${ht * quantity}</td>
+            <td>${montantTVA}</td>
+            <td>${subtotal}</td>
+        </tr>`;
+
+              totalHT += ht * quantity;
+              totalTVA += (tva / 100) * (ht * quantity);
+              totalTTC += subtotal;
+
+          });
+          totalHT = totalHT.toFixed(2);
+          totalTVA = totalTVA.toFixed(2);
+          totalTTC = totalTTC.toFixed(2);
+
+          // Ajout de la ligne pour afficher les totaux avec alignement
+          detailsCommandeHTML += `
+    <tr>
+        <td><strong>TOTAUX</strong></td>
+        <td><strong>${totalHT}</strong></td>
+        <td><strong>${totalTVA}</strong></td>
+        <td><strong>${totalTTC}</strong></td>
+    </tr>`;
+
+
+          detailsCommandeHTML += `
+    <tr>
+        <td colspan="2" style="font-size: 17px;font-weight: 100;" ><strong>${moyenDePaiementChoisi}</strong></td>
+        <td></td>
+        <td style="font-size: 17px;font-weight: 100;"><strong>${totalTTC}</strong></td>
+    </tr>`;
+          // Fermez le <tbody> et la table
+          detailsCommandeHTML += `
+    </tbody>
+</table>`;
           document.getElementById('detailsCommande').innerHTML = detailsCommandeHTML;
           $('#modalTicketDeCaisse').modal('show');
       });

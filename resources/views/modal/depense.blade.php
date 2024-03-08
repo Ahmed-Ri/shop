@@ -23,10 +23,10 @@
 
                     <!-- Catégorie du produit -->
                     <select class="form-select my-2" name="categorie" required>
-                        <option value="">Catégorie de depense</option>
+                        {{-- <option value="">Catégorie de dépense</option> --}}
                         <option value="Frais de transport">Frais de transport</option>
                         <option value="Casse">Casse</option>
-                        <option value="Entrtient">Entrtient</option>
+                        <option value="Entrtient">Entretien</option>
                         <!-- Ajoutez plus de catégories ici si nécessaire -->
                     </select>
 

@@ -49,8 +49,6 @@
                     <li class="nav-item dropdown margin-left">
                         <form method="GET" id="filters-form">
                             <input type="text" name="daterange" value="01/12/2023 - 31/12/2023" />
-
-                            <!-- Ajoutez un bouton de soumission ou utilisez JavaScript pour soumettre le formulaire -->
                         </form>
                     </li>
 

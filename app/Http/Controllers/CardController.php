@@ -13,7 +13,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 //use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Psy\Readline\Hoa\Console;
+
 
 class CardController extends Controller
 {
@@ -24,23 +24,7 @@ class CardController extends Controller
     {
         return view('cart.index');
     }
-    public function Ajout_depense(Request $request)
-    {
-        // Valider les données reçues
-        $validatedData = $request->validate([
-            'montant' => 'required|numeric',
-            'nomProduit' => 'required|string',
-            'categorie' => 'required|string',
-        ]);
-
-        // Créer une nouvelle dépense
-        Depense::create([
-            'nomDepense' => $validatedData['nomProduit'],
-            'MtDepense' => $validatedData['montant'],
-            'CategorieDepense' => $validatedData['categorie'],
-        ]);
-        return redirect()->route('card.index')->with('success', 'La dépense à été ajouter ');
-    }
+   
     public function retour_Montant_Libre(Request $request)
     {
         // Valider les données reçues
@@ -56,7 +40,7 @@ class CardController extends Controller
             'MontantRetour' => $validatedData['montant'],
             'categorieRetour' => $validatedData['categorie'],
         ]);
-        return redirect()->route('card.index')->with('success', 'Le retour à été ajouter ');
+        return redirect()->route('card.index')->with('success', 'Le retour a été ajouter ');
     }
     public function getHistoriqueRetours()
     {
@@ -112,7 +96,7 @@ class CardController extends Controller
         }
 
 
-        return redirect()->route('articles.index')->with('success', 'Article ajouté au panier');
+        return redirect()->route('articles.index')->with('success', 'Article ajouté à la caisse');
     }
 
     //retour Article
@@ -141,9 +125,7 @@ class CardController extends Controller
         } else {
             // Si la quantité est 1, retirez l'article du panier
             Cart::remove($cartItem->rowId);
-        }
-
-      
+        }    
         return redirect()->route('articles.index');
     } else {
         // Ajouter l'article avec un prix TTC négatif
@@ -151,9 +133,42 @@ class CardController extends Controller
         return redirect()->route('articles.index');}
 }
 
+public function AjoutArticle(Request $request)
+{
+    // Assurez-vous que l'ID de l'article est transmis
+    if (!$request->has('id_article')) {
+        return redirect()->route('articles.index')->withErrors(['error' => 'ID de l\'article manquant.']);
+    }
+
+    $articleId = $request->id_article;
+    $article = Article::find($articleId);
+
+    if (!$article) {
+        return redirect()->route('articles.index')->withErrors(['error' => 'Article non trouvé !']);
+    }
+
+    // Rechercher si l'article est déjà dans le panier
+    $cartItem = Cart::search(function ($cartItem, $rowId) use ($articleId) {
+        return $cartItem->id == $articleId;
+    })->first();
+
+    if ($cartItem) {
+        // Si l'article est déjà dans le panier, augmentez sa quantité
+        Cart::update($cartItem->rowId, $cartItem->qty + 1);
+    } else {
+        // Si l'article n'est pas dans le panier, ajoutez-le avec une quantité de 1 et son prix TTC
+        Cart::add($article->id, $article->nomArticle, 1, $article->prixTTC)->associate('App\Models\Article');
+    }
+
+    // Rediriger vers la page du panier ou une autre page avec un message de succès
+    return redirect()->route('articles.index')->with('success', 'Article ajouté au panier avec succès !');
+}
+
+
+
 
    
-   
+   //Modification de la quantité
     public function update(Request $request, $rowId)
     {
         $data = $request->json()->all();
@@ -172,11 +187,34 @@ class CardController extends Controller
         }
         Cart::update($rowId, $data['qty']);
 
-        Session::flash('success', 'La quantité du produit est passée à ' . $data['qty'] . '.');
+        Session::flash('success', "La quantité de l'article est passée à " . $data['qty'] . '.');
         return response()->json(['success' => 'Cart Quantity Has Been Updated']);
     }
 
-   
+   //Ajout dépenses
+    public function Ajout_depense(Request $request)
+    {
+        // Valider les données reçues
+        $validatedData = $request->validate([
+            'montant' => 'required|numeric',
+            'nomProduit' => 'required|string',
+            'categorie' => 'required|string',
+        ]);
+
+        // Créer une nouvelle dépense
+        Depense::create([
+            'nomDepense' => $validatedData['nomProduit'],
+            'MtDepense' => $validatedData['montant'],
+            'CategorieDepense' => $validatedData['categorie'],
+        ]);
+        return redirect()->route('card.index')->with('success', 'La dépense à été ajouter ');
+    }
+
+    public function destroy($rowId)
+    {
+        Cart::remove($rowId);
+        return back()->with('success', "L'article à été supprimer");
+    }
     // public function clearCart()
     // {
     //     Cart::destroy(); // Clears the cart
@@ -184,10 +222,4 @@ class CardController extends Controller
     //     return response()->json(['message' => 'Cart cleared successfully']);
     // }
     
-
-    public function destroy($rowId)
-    {
-        Cart::remove($rowId);
-        return back()->with('success', 'Le produit à été supprimer');
-    }
 }

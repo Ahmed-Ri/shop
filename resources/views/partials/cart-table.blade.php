@@ -13,10 +13,10 @@
                                 <div class="py-2  text-uppercase">Article</div>
                             </th>
                             <th scope="col" class="border-0 bg-light text-center mobile-label" data-mobile-label="QTE">
-                                <div class="py-2 text-uppercase">Quantite</div>
+                                <div class="py-2 text-uppercase">Quantité</div>
                             </th>
                             <th scope="col" class="border-0 bg-light text-center mobile-label" data-mobile-label="TTC">
-                                <div class="py-2  text-uppercase">Prix total ttc</div>
+                                <div class="py-2  text-uppercase">TTC</div>
                             </th>
 
                             <th scope="col" class="border-0 bg-light  text-center">
@@ -97,7 +97,9 @@
           
         </div>
       </div>
+
       <script>
+
         // Responsive Caisse
         function updateThContent() {
           const screenWidth = window.innerWidth;
@@ -107,9 +109,9 @@
             const originalContent = th.getAttribute("data-original-content");
             let newContent = originalContent;
       
-            if (screenWidth <= 420) {
+            if (screenWidth <= 577) {
               const labelMap = {
-                "Article": "ART",
+                "Article": "ARTICLE",
                 "Quantite": "QTE",
                 "Prix total ttc": "TTC",
                 

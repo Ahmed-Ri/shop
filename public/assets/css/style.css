@@ -77,7 +77,10 @@
 .margin-left {
     margin-left: 25px; /* Adjust the value as needed */
 }
-/* Couleurs pour les boutons actifs et inactifs */
+input[name="daterange"] {
+    height: 36px; /* Ajustez cette valeur selon vos besoins */
+  }
+
 .btn-active {
     background-color: #268EE6; /* Couleur pour le bouton actif */
     color: white;

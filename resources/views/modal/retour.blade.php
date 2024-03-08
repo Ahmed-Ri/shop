@@ -9,8 +9,8 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-footer d-flex flex-column align-items-center mt-2">
-                <input type="text" id="articleRefInput" class="form-control" placeholder="Saisir désignation ou code"
-                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                {{-- <input type="text" id="articleRefInput" class="form-control" placeholder="Saisir désignation ou code"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> --}}
                 <button id="btnAjouter" class="btn btn-primary" data-bs-target="#exampleModalToggle10"
                     data-bs-toggle="modal">Montant libre</button>
                 <a href="{{ route('index.retour') }}"> <button id="btnAjouter" class="btn btn-primary">Sélectionner
@@ -44,8 +44,8 @@
                         required>
                     <!-- Catégorie de retour -->
                     <select class="form-select my-2" name="categorie" required>
-                        <option value="">Catégorie de retour</option>
-                        <option value="produit">Produit</option>
+                        {{-- <option value="">Catégorie de retour</option> --}}
+                        <option value="produit">Article</option>
                         <option value="autre">Autres</option>
                     </select>
                     <div class="modal-footer">
